@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown me-5">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Compte
                         </a>
@@ -43,9 +43,14 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item ms-5">
+                        <a href="{{ path('cart') }}" class="btn btn-warning">Panier</a>
+                    </li>
                 </ul>
             </div>
+
         </div>
+
         <div class="navbar-collapse collapse w-400 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
             {% if app.user %}

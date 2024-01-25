@@ -2,26 +2,30 @@
 
 {% block body %}
 
-{% if app.user %}
-  Hello {{app.user.nickname}}
-{% endif %}
-{% for product in products %}
-  <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://m.media-amazon.com/images/S/pv-target-images/1887c82718924371dd79d89e32178faed222c61fdfe3488fc7b212b5a8aa043a.jpg" alt="">
-    <div class="card-body">
-    <h5 class="card-title">{{ product.title }}</h5>
-    <p class="card-text">Description: {{ product.description }}</p>
-    <p class="card-text">Prix: {{ product.price }}€</p>
-    <p class="card-text">Catégorie: {{ product.category.title }}</p>
-    <p class="card-text">Tags:                 
-        {% for tag in product.tags %}
-            {{tag.title}}
+    {% if app.user %}
+        Hello {{ app.user.nickname }}
+    {% endif %}
+    <div class="row justify-content-between">
+        {% for product in products %}
+            <div class="card col-md-3 m-2 p-0">
+                <img class="card-img-top"
+                     src="https://m.media-amazon.com/images/S/pv-target-images/1887c82718924371dd79d89e32178faed222c61fdfe3488fc7b212b5a8aa043a.jpg"
+                     alt="">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">Description: {{ product.description }}</p>
+                    <p class="card-text">Prix: {{ product.price }}€</p>
+                    <p class="card-text">Catégorie: {{ product.category.title }}</p>
+                    <p class="card-text">Tags:
+                        {% for tag in product.tags %}
+                            {{ tag.title }}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ path('add_cart', {'id': product.id, 'target':'home' }) }}" class="btn btn-warning">Ajouter au panier</a>
+                </div>
+            </div>
         {% endfor %}
-    </p>
-<a href="{{url('product_details', {'id': product.id})}}" class="btn btn-primary">En savoir plus</a>
     </div>
-{% endfor %}
-
 
 {% endblock %}
 
