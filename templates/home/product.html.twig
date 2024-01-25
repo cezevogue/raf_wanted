@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article class="postcard dark blue">
+			<a class="postcard__img_link" href="#">
+				<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
+			</a>
+			<div class="postcard__text">
+				<h1 class="postcard__title blue">{{product_details.title}}</h1>
+				<div class="postcard__preview-txt">Prix: {{product_details.price}}€</div>
+				<div class="postcard__preview-txt">{{product_details.description}}</div>
+				<div class="postcard__preview-txt">Catégorie: {{product_details.category.title}}</div>
+        Tags: 
+				{% for tag in product_details.tags %}
+            #{{tag.title}}
+        {% endfor %}</li>
+			</div>
+		</article>
+{% endblock %}
