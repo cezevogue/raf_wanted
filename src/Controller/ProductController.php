@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'admin_product')]
-    #[Route('/{id}', name: 'admin_product_update')]
+    #[Route('/update/{id}', name: 'admin_product_update')]
     public function index(ProductRepository $repository, Request $request, EntityManagerInterface $manager, $id = null): Response
     {
         // AFFICHAGE DES PRODUITS
@@ -131,4 +131,28 @@ class ProductController extends AbstractController
         }
 
     }
+
+    // méthode pour la page de gestion des produits renvoyant products.html.twig
+    #[Route('/list', name: 'product_list')]
+    public function product_list(ProductRepository $repository)
+    {
+        $products=$repository->findAll();
+
+
+        return $this->render('product/products.html.twig', [
+            'products'=>$products
+        ]);
+    }
+
+    #[Route('/detail/{id}', name: 'product_detail')]
+    public function product_detail(ProductRepository $repository, $id)
+    {
+        $product=$repository->find($id);
+
+
+        return $this->render('product/product_detail.html.twig', [
+            'product'=>$product
+        ]);
+    }
+
 }

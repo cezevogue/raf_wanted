@@ -13,7 +13,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">Catégorie</th>
                     <th scope="col">Tags</th>
-                    <th scope="col">Modifier / Supprimer</th>
+                    <th scope="col">Gérer le produit</th>
                 </tr>
                 {% for product in products %}
                     <tr>
@@ -28,8 +28,8 @@
                             {% endfor %}
                         </td>
                         <td>
-                            <a href="{{url('admin_product_update', {'id': product.id})}}" class="btn btn-warning">Modifier</a>
-                            <a href="{{url('admin_product_delete', {'id': product.id})}}" class="btn btn-danger" onclick= "return confirm('Vous êtes sûr de vouloir supprimer?')">Supprimer</a>
+                            <a href="{{url('product_detail', {'id': product.id})}}" class="btn btn-warning">Gérer le produit</a>
+
                         </td>
                     </tr>
                 {% endfor %}
