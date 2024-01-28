@@ -11,12 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(ProductRepository $productRepository): Response
+    public function home(ProductRepository $productRepository, CartService $cartService): Response
     {
         $products = $productRepository->findAll();
+        $cart=$cartService->getCartWithData();
 
         return $this->render('home/home.html.twig', [
-            'products' => $products
+            'products' => $products,
+
         ]);
     }
 
@@ -31,12 +33,12 @@ class HomeController extends AbstractController
 
     }
 
-    #[Route('/cart/remove/{id}', name: 'remove_cart')]
-    public function remove_cart(CartService $cartService, $id)
+    #[Route('/cart/remove/{id}/{target}', name: 'remove_cart')]
+    public function remove_cart(CartService $cartService, $id, $target)
     {
         $cartService->remove($id);
 
-        return $this->redirectToRoute('cart');
+        return $this->redirectToRoute($target);
 
     }
 
@@ -54,7 +56,7 @@ class HomeController extends AbstractController
     {
         $cartService->destroy();
 
-        return $this->redirectToRoute('cart');
+        return $this->redirectToRoute('home');
 
     }
 

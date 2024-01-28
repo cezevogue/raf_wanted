@@ -7,6 +7,21 @@
     {% endif %}
     <div class="row justify-content-between">
         {% for product in products %}
+            {% set add=false %}
+            {% set quantite=0 %}
+            {% if app.session.get('cart') is defined and app.session.get('cart') is not empty %}
+                {% for id,quantity in app.session.get('cart') %}
+                    {% if id==product.id %}
+                        {% set add=true %}
+                        {% set quantite= quantity %}
+                    {% endif %}
+                {% endfor %}
+
+            {% endif %}
+
+
+
+
             <div class="card col-md-3 m-2 p-0">
                 <img class="card-img-top"
                      src="https://m.media-amazon.com/images/S/pv-target-images/1887c82718924371dd79d89e32178faed222c61fdfe3488fc7b212b5a8aa043a.jpg"
@@ -21,7 +36,15 @@
                             {{ tag.title }}
                         {% endfor %}
                     </p>
-                    <a href="{{ path('add_cart', {'id': product.id, 'target':'home' }) }}" class="btn btn-warning">Ajouter au panier</a>
+
+                    <div class="text-center">
+                        <a href="{{ path('remove_cart', {'id': product.id, 'target': 'home'}) }}"
+                           class="btn btn-dark text-white">-</a>
+                        <input class="rounded w-25 fw-bold text-center" type="text" value="{{ quantite }}"
+                               readonly>
+                        <a href="{{ path('add_cart', {'id': product.id, 'target': 'home'}) }}"
+                           class="btn btn-dark text-white">+</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
